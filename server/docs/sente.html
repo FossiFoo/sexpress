@@ -1,0 +1,108 @@
+
+
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <meta name="google" value="notranslate">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+
+    <title>API</title>
+
+    
+  <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/highlight.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/languages/clojure.min.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/magula.min.css">
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.2/angular-cookies.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+  <script type="text/javascript" src="js/angular-highlightjs.min.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="css/rdash.min.css">
+  <link rel="stylesheet" type="text/css" href="css/scrollspy.css">
+
+
+  <script>
+    window.console = window.console || function(t) {};
+    window.open = function(){ console.log("window.open is disabled."); };
+    window.print   = function(){ console.log("window.print is disabled."); };
+  </script>
+
+  <script>
+    var app = angular.module('app', ['hljs']);
+  </script>
+  </head>
+
+  <body ng-app="app" data-spy="scroll" data-target=".scrollspy">
+  <!-- Fixed navbar -->
+    <nav class="navbar navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="img/logo-white.png"></a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li>
+              <a href="https://github.com/TODO/FIXME" target="_blank">Github</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+
+  <div class="container row">
+    <div class="col-md-4 scrollspy pull-right">
+      <ul id="nav" class="nav hidden-xs hidden-sm" data-spy="affix">
+        <li><a href="#api">1  &nbsp;&nbsp; Public API</a><ul class="nav"><li><a href="#rest-api">1.1  &nbsp;&nbsp; REST API</a></li><li><a href="#sente-api">1.2  &nbsp;&nbsp; Sente API</a></li></ul></li>
+      </ul>
+    </div>
+    <div class="col-md-8" id="content">
+      <div class="jumbotron">
+        <div class="container">
+          <h1>API</h1>
+          <h4>remote controlling your AST</h4>
+        </div>
+      </div>
+      <section class="chapter" id="api"><h2 class="chapter">1  &nbsp;&nbsp; Public API</h2><div class="group"><div class="paragraph"><p>clojure (and other LISP) coders know that there is a better way to represent code than in characters, methods, files, checkins. Deep down, almost all language boil down to the AST, that the homoiconic goodness of LISP already (mostly) is. This editor aims to make your code the first-class citizen that it really is on the Von-Neumann-Architecture and give you the power to manipulate it easily in a meaningful way.</p></div><div class="paragraph"><p>A part of this mission includes that code is not persisted as a character based file or checkin in a local or remote repository,but reachable as a service through the network, possibly being manipulated concurrently by a lot of different clients. To keep surprises to a minimum, all edits to code will be saved as a series of immutable operations. Also both importing and exporting to other formats, including plain text files, should be possible.</p></div></div><section class="section" id="rest-api"><h3 class="section">1.1  &nbsp;&nbsp; REST API</h3><div class="paragraph"><p>Currently REST is only used for login calls.</p></div><div class="paragraph"><p>This might be extended later to include more REST calls for editing operations.</p></div><div class="paragraph"><p>The REST API provides a login method.</p></div><div class="code"><div hljs="hljs" language="clojure" no-escape="no-escape">((sut/ring-handler {:db ..db..})
+        (mock/body (mock/request :post &quot;/login&quot;) &quot;{&#92;&quot;user&#92;&quot;: &#92;&quot;foo&#92;&quot;}&quot;))
+       =&gt; nil
+       (provided (#'sut/init-db ..db..) =&gt; ..db..)</div></div></section><section class="section" id="sente-api"><h3 class="section">1.2  &nbsp;&nbsp; Sente API</h3><div class="paragraph"><p>The main API is currently implemented via sente, a clojure library for realtime web communication.</p></div><div class="paragraph"><p>The handler supports the following event types:</p></div><div class="code"><div hljs="hljs" language="clojure" no-escape="no-escape">&quot;nil id calls back with noop&quot;
+       ((sut/sente-handler nil) {:?reply-fn identity}) =&gt; [:noop nil]</div></div><div class="code"><div hljs="hljs" language="clojure" no-escape="no-escape">&quot;passing no reply function does not throw&quot;
+       ((sut/sente-handler nil) {:?reply-fn nil}) =&gt; nil
+       (provided (timbre/-log! anything anything anything anything anything anything anything anything anything anything) =&gt; nil)</div></div><div class="code"><div hljs="hljs" language="clojure" no-escape="no-escape">&quot;session/list calls list&quot;
+       ((sut/sente-handler nil) {:?reply-fn identity :id :session/list}) =&gt; ..result..
+       (provided (#'sut/handle-session-list nil) =&gt; ..result..)</div></div></section></section>
+    </div>
+</div><!--end of .container-->
+
+</body>
+
+<script>
+  $('#nav').affix({
+    offset: {
+        top: $('#nav').offset().top,
+        bottom: $('footer').outerHeight(true) + $('.application').outerHeight(true) + 40
+    }});
+</script>
+
+
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</body>
+</html>

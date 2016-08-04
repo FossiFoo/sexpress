@@ -1,0 +1,80 @@
+#+TITLE sexpress - Prototyping a lispy editor for clojure.
+
+* The whole world is an AST
+
+The char is a lie.
+The char is a lie.
+The char is a lie.
+The char is a lie.
+
+* Server - Client architecture
+
+* Immutable operations only
+
+* Shared Projects, Sessions, Code
+
+* TODOs
+
+** Testing
+
+*** flesh out tests
+*** further hydrox docu
+
+** Infrastructure
+
+*** add hydroxy docu to github
+*** Travis
+*** boot-cloverage
+*** coveralls
+*** deployment to GCE(?)
+
+** Editor capabilities
+
+*** add more constructs
+**** create namespace
+**** def
+**** defn
+**** imports
+**** token
+**** param handling
+
+
+*** autocomplete
+
+*** print as file
+
+*** import file
+
+** interactive things
+
+*** repl
+*** run
+*** tests
+*** coverage
+*** dokumentation?
+
+** Project handling & Im-/Export
+
+*** Boot
+*** leiningen
+*** others?
+
+** Account management
+
+*** real Login
+*** github login
+*** Google login
+
+** Niceness
+
+*** git handling
+*** offline sync
+*** merges & rebases
+
+* License
+
+Eclipse Public License 1.0
+
+* Copyright
+
+- Christoph "FossiFoo" Mewes 2016

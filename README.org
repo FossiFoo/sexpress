@@ -1,0 +1,26 @@
+#+TITLE sexpress - Prototyping a lispy editor for clojure.
+
+* The whole world is an AST
+
+The char is a lie.
+The char is a lie.
+The char is a lie.
+The char is a lie.
+
+* Server - Client architecture
+
+* Immutable operations only
+
+* Shared Projects, Sessions, Code
+
+* TODOs
+
+See subprojects.
+
+* License
+
+Eclipse Public License 1.0
+
+* Copyright
+
+- Christoph "FossiFoo" Mewes 2016

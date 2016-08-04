@@ -1,0 +1,9 @@
+body {
+  color: grey;
+  background-color: black;
+}
+
+input {
+  background-color: black !important;
+  color: grey !important;
+}

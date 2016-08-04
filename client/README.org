@@ -1,0 +1,83 @@
+#+TITLE sexpress - Prototyping a lispy editor for clojure.
+
+Sample web client for editing with sexpress.
+
+* TODOs
+
+** Infrastructure
+
+*** clientside datascript
+*** nightwatch tests
+
+** flesh out design
+
+*** display projects
+*** display session
+*** console design
+*** console history
+*** join session GUI
+*** sync edits
+
+** console ac
+
+
+*** display namespace
+*** display code as text
+
+** Editor capabilities (see server)
+
+
+* Developing
+
+** Development Mode
+
+*** Start Cider from Emacs:
+
+Put this in your Emacs config file:
+
+```
+(setq cider-cljs-lein-repl "(do (use 'figwheel-sidecar.repl-api) (start-figwheel!) (cljs-repl))")
+```
+
+Navigate to a clojurescript file and start a figwheel REPL with `cider-jack-in-clojurescript` or (`C-c M-J`)
+
+*** Compile css:
+
+Compile css file once.
+
+```
+lein garden once
+```
+
+Automatically recompile css file on change.
+
+```
+lein garden auto
+```
+
+*** Run application:
+
+```
+lein clean
+lein figwheel dev
+```
+
+Figwheel will automatically push cljs changes to the browser.
+
+Because of same origin policy, you will need to link and serve the cljs GUI via the server for now.
+
+*** Run tests:
+
+```
+lein clean
+lein doo phantom test once
+```
+
+The above command assumes that you have [phantomjs](https://www.npmjs.com/package/phantomjs) installed. However, please note that [doo](https://github.com/bensu/doo) can be configured to run cljs.test in many other JS environments (chrome, ie, safari, opera, slimer, node, rhino, or nashorn).
+
+** Production Build
+
+```
+lein clean
+lein cljsbuild once min
+```
