@@ -40,11 +40,9 @@
                  [zilti/boot-midje "0.1.2" :scope "test"]
                  [ring/ring-mock "0.3.0" :scope "test"]
                  [pandeiro/boot-http "0.7.3"]
-                 [deraen/boot-livereload "0.1.3-SNAPSHOT"]
                  ;; [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  ;; [cloverage/boot-cloverage "1.0.0-SNAPSHOT"]
                  [boot "2.6.0"]
-                 [cloverage "1.0.8-SNAPSHOT"]
                  [midje "1.9.0-alpha3"]])
 
 (require
@@ -55,7 +53,6 @@
  ;; '[boot-hydrox :refer [hydrox]]
  '[cloverage.boot-cloverage :refer [cloverage]]
  '[pandeiro.boot-http :refer [serve]]
- '[deraen.boot-livereload :refer [livereload]]
  '[clojure.java.io :as io]
  '[clojure.tools.namespace.find :refer [find-namespaces-in-dir]])
 
