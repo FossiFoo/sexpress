@@ -43,6 +43,7 @@
                  ;; [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  ;; [cloverage/boot-cloverage "1.0.0-SNAPSHOT"]
                  [boot "2.6.0"]
+                 [helpshift/hydrox "0.1.16"]
                  [midje "1.9.0-alpha3"]])
 
 (require
