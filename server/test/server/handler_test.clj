@@ -20,12 +20,11 @@
 
 "This might be extended later to include more REST calls for editing operations."
 
-"quuuax"
-
 ^{:refer sut/ring-handler :added "0.1"}
 (facts "The REST API provides a login method."
        (fact ((sut/ring-handler {:db ..db..})
-              (mock/body (mock/request :post "/login") "{\"user\": \"foo\"}"))
+              (-> (mock/request :post "/login")
+                  (assoc :body {:user "foo"})))
              => {:body "" :headers {} :status 200 :session {:uid "foo"}}
              (provided (#'sut/init-db ..db..) => ..db..)))
 

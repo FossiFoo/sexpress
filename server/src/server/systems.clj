@@ -14,7 +14,8 @@
    [taoensso.sente.server-adapters.http-kit :refer (sente-web-server-adapter)]
    [taoensso.sente.packers.transit :refer (get-transit-packer)]
    [ring.middleware.defaults :refer [wrap-defaults]]
-   [ring.middleware.transit :refer [wrap-transit-params]]
+   [ring.middleware.transit :refer [wrap-transit-body]]
+   [ring.middleware.json :refer [wrap-json-body]]
    [server.handler :refer [middleware-defaults ring-handler sente-handler]]
    [server.schema :refer [+schema+]]
    [environ.core :refer [env]]))
@@ -31,7 +32,7 @@
    :routes (component/using
             (new-endpoint ring-handler)
             [:db])
-   :middleware (new-middleware {:middleware [[wrap-transit-params] [wrap-defaults :defaults]]
+   :middleware (new-middleware {:middleware [[wrap-transit-body wrap-json-body] [wrap-defaults :defaults]]
                                 :defaults (middleware-defaults)
                                 :not-found  "<h2>The requested page does not exist.</h2>"})
    :handler (component/using

@@ -1,5 +1,7 @@
 #+TITLE sexpress - Prototyping a lispy editor for clojure.
 
+https://codeship.com/projects/e8cca380-40e9-0134-c48c-2ea8f6359c0a/status?branch=master
+
 * The whole world is an AST
 
 The char is a lie.

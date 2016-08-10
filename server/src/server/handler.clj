@@ -4,6 +4,7 @@
    [compojure.route :as route]
    [compojure.core :refer [routes GET POST ANY]]
    [ring.util.response :refer [response content-type charset]]
+   [ring.util.request :refer [body-string]]
    [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
    [ring.util.response :refer [file-response resource-response
                                         status content-type]]
@@ -14,6 +15,8 @@
    [server.projects :as projects]
    [adi.core :as adi]
    [system.repl :refer [system]]))
+
+(require '("boot.util"))
 
 (defn middleware-defaults []
   (assoc-in site-defaults [:security :anti-forgery] false))
@@ -36,12 +39,14 @@
 (defn- handle-login
   [db session user pass]
   (init-db db)
+  (log :error session user pass)
   {:status 200 :session (assoc session :uid user)})
 
 (defn ring-handler [{db :db}]
   (routes
    (GET "/" [] (html/index))
-   (POST "/login" {session :session {user :user pass :pass} :params} (handle-login db session user pass))
+   (POST "/login" {session :session {user :user pass :pass} :body}
+         (handle-login db session user pass))
    (route/files "/" {:root "resources/public" :allow-symlinks? true})
    (route/not-found "404")))
 

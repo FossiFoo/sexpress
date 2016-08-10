@@ -14,6 +14,7 @@
                              :subtitle "remote controlling your AST"}}
                     :link {:auto-tag  true
                            :auto-number true}})
+
 (set-env!
  :source-paths   #{"src" "test"}
  :resource-paths #{"resources"}
@@ -24,6 +25,7 @@
                  [org.danielsz/system "0.3.0-SNAPSHOT"]
                  [ring/ring-defaults "0.1.5"]
                  [ring-transit "0.1.6"]
+                 [ring/ring-json "0.4.0"]
                  [http-kit "2.1.19"]
                  [compojure "1.4.0"]
                  [com.taoensso/sente "1.9.0"]
@@ -40,20 +42,21 @@
                  [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  [pandeiro/boot-http "0.7.3"]
                  [deraen/boot-livereload "0.1.3-SNAPSHOT"]
+                 ;; [cloverage/boot-cloverage "1.0.0-SNAPSHOT"]
+                 [cloverage "1.0.8-SNAPSHOT"]
                  [midje "1.9.0-alpha3"]])
 
 (require
- '[boot.pod :as pod]
- '[clojure.pprint :refer [pprint]]
- '[taoensso.timbre :refer [log spy]]
  '[server.systems :refer [dev-system prod-system]]
  '[environ.boot :refer [environ]]
  '[system.boot :refer [system run]]
  '[zilti.boot-midje :refer :all]
  '[boot-hydrox :refer [hydrox]]
- '[cloverage.coverage :as cloverage]
+ '[cloverage.boot-cloverage :refer [cloverage]]
  '[pandeiro.boot-http :refer [serve]]
- '[deraen.boot-livereload :refer [livereload]])
+ '[deraen.boot-livereload :refer [livereload]]
+ '[clojure.java.io :as io]
+ '[clojure.tools.namespace.find :refer [find-namespaces-in-dir]])
 
 (deftask dev
   "Run a restartable system in the Repl"
@@ -88,23 +91,9 @@
    (livereload :path "docs")
    (wait)))
 
-(def ^:private deps
-  '[[cloverage "1.0.6"]])
-
-(deftask cloverage
-  "cloverage analysis"
+(deftask cloverage-run
   []
-  (let [pod (-> (get-env)
-                (update-in [:dependencies] into deps)
-                pod/make-pod
-                future)]
-    (with-post-wrap fileset
-      (let [namespaces (fileset-namespaces fileset)
-            ns-names (map name namespaces)
-            args (into [] ns-names)]
-        (log :info "running cloverage with " args)
-        (pod/with-call-in @pod (cloverage.coverage/-main ~args))))))
-
+  (cloverage :opts "--lcov --no-html"))
 
 (deftask hydrox-try
   "hydrox documentation generation"
