@@ -82,13 +82,6 @@
    (run :main-namespace "server.core" :arguments [#'prod-system])
    (wait)))
 
-(deftask docs
-  []
-  (comp
-   (serve :dir "docs")
-   (livereload :path "docs")
-   (wait)))
-
 (deftask cloverage-run
   []
   (cloverage :opts "--coveralls --no-html"))
