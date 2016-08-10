@@ -20,7 +20,8 @@
                 pod/make-pod
                 future)]
     (core/with-post-wrap fileset
-      (let [namespaces (core/fileset-namespaces fileset)
+      (let [all-namespaces (core/fileset-namespaces fileset)
+            namespaces (remove #(= "cloverage.boot-cloverage" (name %)) all-namespaces)
             test-matcher-or-default (or test-matcher #".*-test")
             [code-namespaces test-namespaces] ((juxt remove filter) #(re-matches test-matcher-or-default (name %)) namespaces)
             code-ns-names (map name code-namespaces)

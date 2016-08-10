@@ -39,10 +39,11 @@
                  [org.clojure/data.json "0.2.6"]
                  [zilti/boot-midje "0.1.2" :scope "test"]
                  [ring/ring-mock "0.3.0" :scope "test"]
-                 [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  [pandeiro/boot-http "0.7.3"]
                  [deraen/boot-livereload "0.1.3-SNAPSHOT"]
+                 ;; [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  ;; [cloverage/boot-cloverage "1.0.0-SNAPSHOT"]
+                 [boot "2.6.0"]
                  [cloverage "1.0.8-SNAPSHOT"]
                  [midje "1.9.0-alpha3"]])
 
@@ -51,7 +52,7 @@
  '[environ.boot :refer [environ]]
  '[system.boot :refer [system run]]
  '[zilti.boot-midje :refer :all]
- '[boot-hydrox :refer [hydrox]]
+ ;; '[boot-hydrox :refer [hydrox]]
  '[cloverage.boot-cloverage :refer [cloverage]]
  '[pandeiro.boot-http :refer [serve]]
  '[deraen.boot-livereload :refer [livereload]]
@@ -93,12 +94,12 @@
 
 (deftask cloverage-run
   []
-  (cloverage :opts "--lcov --no-html"))
+  (cloverage :opts "--lcov --coveralls --no-html"))
 
-(deftask hydrox-try
-  "hydrox documentation generation"
-  []
-  (comp
-   (watch)
-   (hydrox)
-   (wait)))
+;; (deftask hydrox-try
+;;   "hydrox documentation generation"
+;;   []
+;;   (comp
+;;    (watch)
+;;    (hydrox)
+;;    (wait)))
