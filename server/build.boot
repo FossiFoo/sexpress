@@ -94,7 +94,7 @@
 
 (deftask cloverage-run
   []
-  (cloverage :opts "--lcov --coveralls --no-html"))
+  (cloverage :opts "--coveralls --no-html"))
 
 ;; (deftask hydrox-try
 ;;   "hydrox documentation generation"
