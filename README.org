@@ -1,6 +1,6 @@
 #+TITLE: sexpress - Prototyping a lispy editor for clojure.
 
-[[Https://codeship.com/projects/e8cca380-40e9-0134-c48c-2ea8f6359c0a/status.png]]
+[[https://codeship.com/projects/e8cca380-40e9-0134-c48c-2ea8f6359c0a/status.png]]
 [[https://coveralls.io/github/FossiFoo/sexpress][https://coveralls.io/repos/github/FossiFoo/sexpress/badge.png]]
 
 * Features
