@@ -1,17 +1,4 @@
-#+TITLE sexpress - Prototyping a lispy editor for clojure.
-
-* The whole world is an AST
-
-The char is a lie.
-The char is a lie.
-The char is a lie.
-The char is a lie.
-
-* Server - Client architecture
-
-* Immutable operations only
-
-* Shared Projects, Sessions, Code
+#+TITLE: sexpress - Prototyping a lispy editor for clojure.
 
 * TODOs
 
@@ -22,10 +9,10 @@ The char is a lie.
 
 ** Infrastructure
 
-*** add hydroxy docu to github
-*** Travis
-*** boot-cloverage
-*** coveralls
+*** DONE add hydroxy docu to github
+*** DONE Travis
+*** DONE boot-cloverage
+*** DONE coveralls
 *** deployment to GCE(?)
 
 ** Editor capabilities
@@ -51,7 +38,7 @@ The char is a lie.
 *** run
 *** tests
 *** coverage
-*** dokumentation?
+*** documentation?
 
 ** Project handling & Im-/Export
 

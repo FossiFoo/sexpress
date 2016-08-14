@@ -1,4 +1,4 @@
-#+TITLE sexpress - Prototyping a lispy editor for clojure.
+#+TITLE: sexpress - Prototyping a lispy editor for clojure.
 
 Sample web client for editing with sexpress.
 

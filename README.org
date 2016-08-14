@@ -1,24 +1,38 @@
-#+TITLE sexpress - Prototyping a lispy editor for clojure.
+#+TITLE: sexpress - Prototyping a lispy editor for clojure.
 
-[[https://codeship.com/projects/e8cca380-40e9-0134-c48c-2ea8f6359c0a/status.png]]
-[[https://coveralls.io/repos/github/FossiFoo/sexpress/badge.png]]
+[[Https://codeship.com/projects/e8cca380-40e9-0134-c48c-2ea8f6359c0a/status.png]]
+[[https://coveralls.io/github/FossiFoo/sexpress][https://coveralls.io/repos/github/FossiFoo/sexpress/badge.png]]
 
-* The whole world is an AST
+* Features
+
+** The whole world is an AST
 
 The char is a lie.
 The char is a lie.
 The char is a lie.
 The char is a lie.
 
-* Server - Client architecture
+ASCII is an artform, not a sane way to edit code. Use meaningful editing operations that keep your code intact.
 
-* Immutable operations only
+** Server - Client architecture
 
-* Shared Projects, Sessions, Code
+Be free to edit your code. On any device you want. With as many people as you want. Without having to worry about backups and checkins.
+
+** Immutable operations only
+
+Storing bits is cheap. There is no point in throwing away the history of your work. Go back to every point in time whenever you like. Enjoy awesome merging, prototyping and refactoring instead of having to suppress a gag reflex.
+
+** Shared Projects, Sessions, Code
+
+Almost all coding of any sizable project is a team sport. Do not only share responsibilities, dependencies and bugs, but what you really care about.
+
+* Documentation
+
+[[https://htmlpreview.github.io/?https://github.com/FossiFoo/sexpress/blob/master/server/docs/sente.html][Generated API documentation]]
 
 * TODOs
 
-See subprojects.
+See [[server/README.org][server]] and [[client/README.org][client]].
 
 * License
 
