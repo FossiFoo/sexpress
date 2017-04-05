@@ -34,4 +34,5 @@
         (pod/with-eval-in @pod
           (doseq [ns '~code-namespaces] (require ns))    ; puts the code-namespaces on the classpatch and requires them
           (require 'cloverage.coverage)                  ; we also need to resolve cloverage itself
-          (cloverage.coverage/-main ~@args))))))         ; args include code-namespace names, so cloverage does not need to resolve them, test-dir will be scanned for tests
+          (binding [cloverage.coverage/*exit-after-test* false]
+            (cloverage.coverage/-main ~@args)))))))         ; args include code-namespace names, so cloverage does not need to resolve them, test-dir will be scanned for tests
