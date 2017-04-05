@@ -18,7 +18,9 @@
   ""
   []
   [re-com/h-box
-   :children [[:button {:on-click #(dispatch [:account/login "fossi" "foo"])} "login as me" ]
+   :children [[re-com/button
+               :on-click #(dispatch [:account/login "fossi" "foo"])
+               :label"login as me" ]
               [sente-panel]]])
 
 (defn- init-stuff
@@ -41,10 +43,20 @@
                       (dispatch [:editor/command-exec]))]
     (fn []
       [re-com/h-box
+       :gap "1rem"
        :children [[:button {:on-click init-stuff} "init" ]
                   [:form {:on-submit exec-cmd-fn}
-                   [re-com/input-text :model @val :change-on-blur? false :on-change #(dispatch [:editor/command-set %])]
-                   [:button {:on-click exec-cmd-fn} "send" ]]]])))
+                   [re-com/h-box
+                    :children [[re-com/input-text :model @val :change-on-blur? false :on-change #(dispatch [:editor/command-set %])]
+                               [re-com/button
+                                :on-click exec-cmd-fn
+                                :label "send"]]]]]])))
+
+(defn display-history-entry
+  ""
+  [entry]
+  [re-com/label :label (prn-str entry)])
+
 
 
 (defn console-history
@@ -54,32 +66,56 @@
     (fn []
       [:div "history"
        (when cmd-history
-         (prn-str @cmd-history))])))
+         [re-com/v-box
+          :children (map display-history-entry @cmd-history)])])))
 
 (defn console-panel
   ""
   []
   [re-com/v-box
-   :children [[console-history]
-              [console-form]]])
+   :height "150px"
+   :style {:background-color "lightgrey"}
+   :children [[console-form]
+              [console-history]]])
+
+(defn display-session
+  ""
+  [session]
+  (let [session-name (:name (:session session))]
+    [:strong {:key session-name} session-name]))
+
 
 (defn session-panel []
   (let [sessions (subscribe [:sessions/list])]
     (fn []
       (when @sessions
-        [:div "sessions: " (prn-str @sessions)]))))
+        [re-com/h-box
+         :gap "1rem"
+         :children (concat ["Sessions:"] (map display-session @sessions))
+                    ;; [:div {:class "text-muted"} "sessions: " (prn-str @sessions)]
+         ]))))
+
+(defn display-project
+  ""
+  [project]
+  (let [project-name (:name (:project project))]
+    [:strong {:key project-name} project-name]))
 
 (defn project-panel []
   (let [projects (subscribe [:projects/list])]
     (fn []
       (when @projects
-        [:div "projects: " (prn-str @projects)]))))
+        [re-com/h-box
+         :gap "1rem"
+         :children  (concat ["Projects:"] (map display-project @projects))
+         ;; [:div "projects: " (prn-str @projects)]
+         ]))))
 
 
 (defn home-title []
   [re-com/title
-   :label "finally nice things"
-   :level :level1])
+   :label "S-Express"
+   :level :level2])
 
 (defn link-to-about-page []
   [re-com/hyperlink-href
@@ -97,12 +133,15 @@
 (defn main-panel []
   [re-com/v-box
    :gap "1em"
+   :size "1 1 auto"
    :children [[session-panel]
               [project-panel]]])
 
 (defn home-panel []
   [re-com/v-box
    :gap "1em"
+   :size "1 1 auto"
+   :justify :between
    :children [[header-panel]
               [main-panel]
               [console-panel]]])
@@ -139,6 +178,8 @@
 (defn app-panel []
   (let [active-panel (subscribe [:active-panel])]
     (fn []
-      [re-com/v-box
-       :height "100%"
-       :children [[panels @active-panel]]])))
+      [:div {:class "wrapper" :style {:height "100vh"}}
+       [re-com/v-box
+        :height "100%"
+        :size "1 1 auto"
+        :children [[panels @active-panel]]]])))

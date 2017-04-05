@@ -49,7 +49,7 @@
 (defn handle-account-login
   [db [user pass]]
   (log :info "logging in" user pass)
-  ;; (rest/login user pass)
+  (rest/login user pass)
   (assoc db :account {:login user}))
 
 (register-handler

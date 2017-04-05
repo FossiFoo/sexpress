@@ -31,9 +31,9 @@
 (register-sub
  :sessions/list
  (fn [db]
-   (reaction (:sessions @db))))
+   (reaction (first (:list (:sessions @db))))))
 
 (register-sub
  :projects/list
  (fn [db]
-   (reaction (:projects @db))))
+   (reaction (first (:projects @db)))))
