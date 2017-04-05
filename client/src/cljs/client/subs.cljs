@@ -1,8 +1,9 @@
 (ns client.subs
-    (:require-macros [reagent.ratom :refer [reaction]])
-    (:require [re-frame.core :as re-frame :refer [register-sub]]
-              [taoensso.timbre :refer-macros (logf log spy)]
-              [clojure.string :as s]))
+  (:require-macros [reagent.ratom :refer [reaction]])
+  (:require [re-frame.core :as re-frame :refer [register-sub]]
+            [taoensso.timbre :refer-macros (logf log spy)]
+            [clojure.string :as s]
+            [client.db :as db]))
 
 (register-sub
  :active-panel
@@ -17,7 +18,7 @@
 (register-sub
  :editor/command
  (fn [db]
-   (let [cmd (reaction (get-in @db [:editor :command]))]
+   (let [cmd (reaction (db/get-editor-command @db))]
      (reaction (let [cmd-str (subs (str (:command @cmd)) 1)
                      params (:params @cmd)
                      params-str (if params (pr-str params) "")]
@@ -26,7 +27,7 @@
 (register-sub
  :editor/cmd-history
  (fn [db]
-   (reaction (take 10 (get-in @db [:editor :cmd-history])))))
+   (reaction (take 10 (db/get-editor-history @db)))))
 
 (register-sub
  :sessions/list

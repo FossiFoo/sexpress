@@ -74,11 +74,19 @@
 (register-handler
  :editor/command-exec
   (fn [db [_]]
-    (let [{cmd :command params :params} (:command (:editor db))]
+    (let [{cmd :command params :params} (db/get-editor-command db)]
       (log :info "executing command" cmd params)
       (dispatch (conj [:ws/send cmd] params))
       (dispatch [:editor/command-set nil])
-      (update-in db [:editor :cmd-history] #(conj % [cmd params])))))
+      (spy :error (db/add-editor-history-entry db [cmd params])))))
+
+;; local state =====================================================================================
+
+(register-handler
+ :state/active-project
+  (fn [db [_ data]]
+    (log :debug "project active" data)
+    (assoc db :state data)))
 
 ;; editing session =================================================================================
 
