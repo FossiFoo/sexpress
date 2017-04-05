@@ -9,6 +9,7 @@
   (adi/select db :session))
 
 (defn join
+  "joins user with given name into the specified session"
   [db session-name username]
   (let [userid (:id (:db (adi/select db {:account/user username} :first :ids)))]
     (when userid
@@ -17,6 +18,7 @@
                           :session/users userid}]))))
 
 (defn attach
+  "attaches a session to a project"
   [db session-name project-name]
   (let [project-id (:id (:db (adi/select db {:project/name project-name} :first :ids)))]
     (when project-id
