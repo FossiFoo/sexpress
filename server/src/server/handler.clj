@@ -52,17 +52,16 @@
 
 (defn- handle-project-list
   [db]
-  (log :error "handler9")
   [:projects/list (projects/list db)])
-
-(defn- handle-session-detail
-  [db session-name]
-  [:session/detail (session/detail db session-name)])
 
 (defn- handle-project-create
   [db data ?reply-fn]
   (projects/create db (select-keys data [:name]))
   (maybe-reply ?reply-fn (handle-project-list db)))
+
+(defn- handle-session-detail
+  [db session-name]
+  [:session/detail (session/detail db session-name)])
 
 (defn- handle-session-attach
   [db {session-name :session project-name :project} ?reply-fn]
@@ -76,8 +75,9 @@
 
 (defn- handle-session-list
   [db]
-  (log :error "handler19")
-  [:session/list (session/list db)])
+  (let [sessions (session/list db)]
+    (log :error "session list" sessions)
+    [:session/list sessions]))
 
 (defn- handle-edit-command
   [db [command data] reply-fn]
