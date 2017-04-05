@@ -73,9 +73,9 @@
     {:id           "e2e"
      :source-paths ["e2e/cljs"]
      :compiler     {:output-to     "target/test.js"
-                    :foreign-libs  {:file ["libs/nightwatch-0.9.6/lib/index.js"]
-                                    :provides ["nw"]}
-                    :target        :node
+                    :foreign-libs  [{:file "libs/nightwatch-0.9.6/lib/index.js"
+                                     :provides ["nw"]}]
+                    :target        :nodejs
                     :main          e2e.runner
                     :optimizations :simple}}
     ]}
