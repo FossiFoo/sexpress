@@ -81,7 +81,7 @@
 
 (defn- handle-edit-command
   [db [command data] reply-fn]
-  (reply-fn (editor/command db command data)))
+  (reply-fn (editor/command db (keyword command) data)))
 
 
 (defn reply-logged

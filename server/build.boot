@@ -28,7 +28,7 @@
                  [ring/ring-json "0.4.0"]
                  [http-kit "2.1.19"]
                  [compojure "1.4.0"]
-                 [com.taoensso/sente "1.9.0"]
+                 [com.taoensso/sente "1.11.0"]
                  [com.cognitect/transit-clj "0.8.285"]
                  [midje "1.8.3"]
                  [com.taoensso/timbre "4.5.1"]
@@ -40,18 +40,20 @@
                  [zilti/boot-midje "0.1.2" :scope "test"]
                  [ring/ring-mock "0.3.0" :scope "test"]
                  [pandeiro/boot-http "0.7.3"]
-                 ;; [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
+                 [boot-hydrox "0.1.17-SNAPSHOT" :scope "test"]
                  ;; [cloverage/boot-cloverage "1.0.0-SNAPSHOT"]
                  [boot "2.6.0"]
-                 [helpshift/hydrox "0.1.16"]
-                 [midje "1.9.0-alpha3"]])
+                 [deraen/boot-livereload "0.1.2"]
+                 [midje "1.9.0-alpha3"]
+                 [zilti/boot-midje "0.1.1"]])
 
 (require
  '[server.systems :refer [dev-system prod-system]]
  '[environ.boot :refer [environ]]
  '[system.boot :refer [system run]]
  '[zilti.boot-midje :refer :all]
- ;; '[boot-hydrox :refer [hydrox]]
+ '[boot-hydrox :refer :all]
+ '[deraen.boot-livereload :refer [livereload]]
  '[cloverage.boot-cloverage :refer [cloverage]]
  '[pandeiro.boot-http :refer [serve]]
  '[clojure.java.io :as io]
@@ -85,12 +87,19 @@
 
 (deftask cloverage-run
   []
-  (cloverage :opts "--coveralls --no-html"))
+  (cloverage :opts "--lcov --no-html"))
 
-;; (deftask hydrox-try
-;;   "hydrox documentation generation"
-;;   []
-;;   (comp
-;;    (watch)
-;;    (hydrox)
-;;    (wait)))
+(deftask test-run
+  []
+  (midje :level 2)) ; :print-facts
+
+(deftask hydrox-run
+  "hydrox documentation generation"
+  []
+  (set-env! :source-paths #{"docs"})
+  (comp
+   (serve :dir "docs/")
+   (hydrox)
+   (watch :verbose true)
+   (livereload)
+   (hydrox-docs)))

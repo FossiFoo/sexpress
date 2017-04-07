@@ -6,6 +6,8 @@
             [taoensso.timbre :refer [log spy] :as timbre]
             [clojure.test :as t]))
 
+(background (timbre/-log! anything anything anything anything anything anything anything anything anything anything) => nil)
+
 [[:chapter {:tag "api" :title "Public API"}]]
 
 "Clojure (and other Lisp) coders know that there is a better way to represent code than in characters, methods, files, checkins. Deep down, almost all language boil down to the AST which the homoiconic goodness of Lisp already (mostly) is. This editor aims to make your code the first-class citizen that it really is on the Von-Neumann-Architecture and give you the power to manipulate it easily in a meaningful way."
@@ -32,13 +34,18 @@
 
 "The main API is currently implemented via sente, a clojure library for realtime web communication."
 
+
 ^{:refer sut/sente-handler :added "0.1"}
 (facts "The handler supports the following event types:"
        (fact "nil id calls back with noop"
-             ((sut/sente-handler nil) {:?reply-fn identity}) => [:noop nil])
+             ((sut/sente-handler nil) {:?reply-fn identity})
+             => [:noop nil])
        (fact "passing no reply function does not throw"
-             ((sut/sente-handler nil) {:?reply-fn nil}) => nil
-             (provided (timbre/-log! anything anything anything anything anything anything anything anything anything anything) => nil))
-       (fact "session/list calls list"
+             ((sut/sente-handler nil) {:?reply-fn nil}) => nil)
+       (fact "A session list can be aquired"
              ((sut/sente-handler nil) {:?reply-fn identity :id :session/list}) => ..result..
              (provided (#'sut/handle-session-list nil) => ..result..)))
+
+(fact "A session list can be aquired"
+      ((sut/sente-handler nil) {:?reply-fn identity :id :session/list}) => ..result..
+      (provided (#'sut/handle-session-list nil) => ..result..))

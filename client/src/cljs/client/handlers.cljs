@@ -78,7 +78,7 @@
       (log :info "executing command" cmd params)
       (dispatch (conj [:ws/send cmd] params))
       (dispatch [:editor/command-set nil])
-      (spy :error (db/add-editor-history-entry db [cmd params])))))
+      (db/add-editor-history-entry db [cmd params]))))
 
 ;; local state =====================================================================================
 

@@ -6,7 +6,7 @@
             [clojure.set :as set]))
 
 (def ^:private deps
-  '[[cloverage "1.0.6"]])
+  '[[cloverage "1.0.9"]])
 
 (core/deftask cloverage
   "Run cloverage in a pod.
