@@ -80,8 +80,8 @@
     [:session/list sessions]))
 
 (defn- handle-edit-command
-  [db [command data] reply-fn]
-  (reply-fn (editor/command db (keyword command) data)))
+  [db [command data] uid reply-fn]
+  (reply-fn (editor/command db (keyword command) data uid)))
 
 
 (defn reply-logged
@@ -116,7 +116,7 @@
           :session/detail (assert-reply ?reply-fn (handle-session-detail db data))
           :project/list (assert-reply ?reply-fn (handle-project-list db))
           :project/create (handle-project-create db data reply-fn)
-          :editor/command (handle-edit-command db data reply-fn)
+          :editor/command (handle-edit-command db data uid reply-fn)
           :chsk/uidport-open nil
           :chsk/uidport-close nil
           (do

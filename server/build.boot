@@ -19,10 +19,11 @@
  :source-paths   #{"src" "test"}
  :resource-paths #{"resources"}
  :documentation documentation
- :dependencies '[[org.clojure/clojure "1.8.0"]
+ :dependencies '[[org.clojure/clojure "1.9.0-alpha14"]
+                 [org.clojure/test.check "0.9.0"]
                  [environ "1.0.3"]
                  [boot-environ "1.0.3"]
-                 [org.danielsz/system "0.3.0-SNAPSHOT"]
+                 [org.danielsz/system "0.4.0"]
                  [ring/ring-defaults "0.1.5"]
                  [ring-transit "0.1.6"]
                  [ring/ring-json "0.4.0"]
@@ -30,7 +31,7 @@
                  [compojure "1.4.0"]
                  [com.taoensso/sente "1.11.0"]
                  [com.cognitect/transit-clj "0.8.285"]
-                 [midje "1.8.3"]
+                 [midje "1.9.0-alpha6"]
                  [com.taoensso/timbre "4.5.1"]
                  [com.datomic/datomic-free "0.9.5350"]
                  [im.chit/adi "0.3.2"]

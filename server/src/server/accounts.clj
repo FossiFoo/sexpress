@@ -1,17 +1,17 @@
-(ns server.projects
+(ns server.accounts
   (:require [clojure.spec :as s]
             [taoensso.timbre :refer [log spy] :as timbre]
             [clojure.walk :as walk]
             [server.db :as db]))
 
-(s/def :sexpress/project-list (s/coll-of :sexpress/project))
+(s/def :sexpress/account-list (s/coll-of :sexpress/account))
 
 (defn create
   [db data]
-  (db/insert! db {:project data}))
+  (db/insert! db {:account data}))
 
 (s/fdef create
-        :args (s/cat :db any? :data #{:project})
+        :args (s/cat :db any? :data #{:sexpress/account})
         :ret any?)
 
 (defn namespace-keywords
@@ -23,13 +23,13 @@
 
 (defn list
   [db]
-  (let [db-val (map :project (db/select db :project))
+  (let [db-val (map :account (db/select db :account))
         transformed (namespace-keywords db-val)
-        val (s/conform :sexpress/project-list transformed)]
+        val (s/conform :sexpress/account-list transformed)]
     (when (= :clojure.spec/invalid val)
-      (s/explain :sexpress/project-list transformed))
+      (s/explain :sexpress/account-list transformed))
     val))
 
 (s/fdef list
         :args (s/cat :db any?)
-        :ret :sexpress/project-list)
+        :ret :sexpress/account-list)
