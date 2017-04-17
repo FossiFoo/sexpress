@@ -2,33 +2,34 @@
   (:require [clojure.spec :as s]
             [taoensso.timbre :refer [log spy] :as timbre]
             [clojure.walk :as walk]
+            [clojure.edn :as edn]
             [server.db :as db]))
 
 (s/def :sexpress/namespace-list (s/coll-of :sexpress/namespace))
 
 (defn create
   [db data]
-  (s/assert :sexpress/namespace data)
-  (db/insert! db {:namespace data}))
+  (db/insert! db {:namespace {:namespace-name (:sexpress/namespace-name data)
+                              :namespace-data (pr-str (:sexpress/namespace-data data))}}))
 
 (s/fdef create
         :args (s/cat :db any? :data #{:sexpress/namespace})
         :ret any?)
 
-(defn namespace-keywords
+(defn deserialize-namespace
   ""
-  [m]
-  (let [f (fn [[k v]] (if (keyword? k) [(keyword "sexpress" (name k)) v] [k v]))]
-    ;; only apply to maps
-    (walk/postwalk (fn [x] (if (map? x) (into {} (map f x)) x)) m)))
+  [db-val]
+  (let [data (edn/read-string (:namespace-data db-val))]
+    #:sexpress{:namespace-name (:namespace-name db-val)
+               :namespace-data data}))
 
 (defn list
   [db]
   (let [db-val (map :namespace (db/select db :namespace))
-        transformed (namespace-keywords db-val)
-        val (s/conform :sexpress/namespace-list transformed)]
+        deserialized (map deserialize-namespace db-val)
+        val (s/conform :sexpress/namespace-list deserialized)]
     (when (= :clojure.spec/invalid val)
-      (s/explain :sexpress/namespace-list transformed))
+      (s/explain :sexpress/namespace-list deserialized))
     val))
 
 (s/fdef list

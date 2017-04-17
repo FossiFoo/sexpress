@@ -4,8 +4,8 @@
 
 ** Testing
 
-*** flesh out tests
-*** further hydrox docu
+*** DONE flesh out tests
+*** TODO further hydrox docu
 
 ** Infrastructure
 
@@ -13,50 +13,61 @@
 *** DONE Travis
 *** DONE boot-cloverage
 *** DONE coveralls
-*** deployment to GCE(?)
+*** TODO deployment to GCE(?)
 
 ** Editor capabilities
 
 *** add more constructs
-**** create namespace
-**** def
-**** defn
-**** imports
-**** token
-**** param handling
+**** DONE create namespace
+**** TODO def
+**** TODO seq
+**** TODO string
+**** TODO numbers
+**** TODO characters
+**** TODO bools
+**** TODO nil
+**** TODO keywords
+**** TODO fn
+**** TODO let
+**** TODO defn
+**** TODO imports
+**** TODO symbol
+**** TODO destructuring
+**** TODO throw/exceptions
+**** TODO macros
+**** TODO reader macros
 
+*** TODO autocomplete
 
-*** autocomplete
+*** TODO print as file
 
-*** print as file
-
-*** import file
+*** TODO import file
 
 ** interactive things
 
-*** repl
-*** run
-*** tests
-*** coverage
-*** documentation?
+*** TODO repl
+*** TODO run
+*** TODO tests
+*** TODO coverage
+*** TODO documentation?
 
 ** Project handling & Im-/Export
 
-*** Boot
-*** leiningen
-*** others?
+*** TODO Boot
+*** TODO leiningen
+*** TODO others?
 
 ** Account management
 
-*** real Login
-*** github login
-*** Google login
+*** TODO real Login
+*** TODO github login
+*** TODO Google login
 
 ** Niceness
 
-*** git handling
-*** offline sync
-*** merges & rebases
+*** TODO git handling
+*** TODO offline sync
+*** TODO merges & rebases
 
 * License
 

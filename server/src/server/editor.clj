@@ -3,7 +3,8 @@
             [taoensso.timbre :refer [log spy]]
             [clojure.spec :as s]
             [server.events :as events]
-            [server.namespaces :as ns]))
+            [server.namespaces :as ns]
+            [server.vars :as vars]))
 
 (defn make-event
   [cmd uid data]
@@ -25,9 +26,27 @@
 (defmethod handle-editor-command :ns-create
   [cmd data uid db]
   (log :info "got ns create" data)
-  (let [ns-data (s/conform :sexpress/namespace-data data)]
-    (events/append (make-event :ns-create uid (:sexpress/namespace-name ns-data)))
-    (ns/create db ns-data)))
+  (s/assert :sexpress/namespace-data data)
+  (events/append (make-event :ns-create uid (:sexpress/namespace-name data)))
+  (ns/create db data))
+
+(defn transform-var
+  ""
+  [data]
+  (let [ns (:sexpress/namespace-name data)
+        symbol (:sexpress/symbol data)]
+    #:sexpress{:symbol symbol
+               :namespace-name ns
+               :var-data (:sexpress/var-data data)
+               :ns-symbol (str ns symbol)}))
+
+
+(defmethod handle-editor-command :var-create
+  [cmd data uid db]
+  (log :info "got var create" data)
+  (let [var-data (transform-var data)]
+    (s/assert :sexpress/var var-data)
+    (vars/create db var-data)))
 
 (defmethod handle-editor-command :default
   [cmd data uid db]

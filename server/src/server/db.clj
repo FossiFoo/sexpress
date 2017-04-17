@@ -16,8 +16,8 @@
 
 (defn select
   "fdef wrapper for select"
-  [db selector]
-  (adi/select db selector))
+  [db selector & opts]
+  (adi/select db selector opts))
 
 (s/fdef select
         :args (s/cat :db ::db :selector any?)
